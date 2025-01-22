@@ -1,14 +1,4 @@
-def binary_to_decimal(binary, bits):
-    binary = binary.zfill(bits)
-    value = int(binary, 2)
-    if binary[0] == '1':
-        value = value - (1 << bits)
-    return value
-
-def decimal_to_binary(value, bits):
-    if value < 0:
-        value = (1 << bits) + value
-    return bin(value & ((1 << bits) - 1))[2:].zfill(bits)
+from question1 import binary_to_decimal,decimal_to_binary,AddSub
 
 def unsigned_binary_division(dividend, divisor, n_bits):
     dividend = binary_to_decimal(dividend, n_bits)
@@ -25,11 +15,14 @@ def unsigned_binary_division(dividend, divisor, n_bits):
     while count > 0:
         A = (A << 1) | ((Q >> (n_bits - 1)) & 1)
         Q = (Q << 1) & ((1 << n_bits) - 1)
-        A = A - M
+
+        A_binary = decimal_to_binary(A, n_bits)
+        M_binary = decimal_to_binary(M, n_bits)
+        A_binary, A = AddSub(A_binary, M_binary, "sub", n_bits)
 
         if A < 0:
             Q &= ~(1)
-            A += M
+            A_binary, A = AddSub(A_binary, M_binary, "add", n_bits)
         else:
             Q |= 1
 
