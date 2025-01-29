@@ -15,8 +15,18 @@ The output of the program is A+B or A-B based on the flag-bit.
 
 '''
 
-def script(a,b,flag):
-    pass
+import FloatingPointNumbers 
+
+def script(a: FloatingPointNumbers,b: FloatingPointNumbers,flag):
+    if a.significand == 0:
+        return b 
+    if b.significand == 0:
+        return a
+    
+    
+
+
+
 
 if __name__=="__main__":
     n = int(input("Enter the integer n: "))
@@ -27,8 +37,8 @@ if __name__=="__main__":
     e2 = input(f"Enter the second {m}-bit string: ")
     flag = input(f"Enter the flag bit(1 for addition and 0 for subtraction): ")
     
-    A = None
-    B = None
+    A = FloatingPointNumbers(1,e1,s1)
+    B = FloatingPointNumbers(1,e2,s2)
     
     result = script(A,B,flag)
     
