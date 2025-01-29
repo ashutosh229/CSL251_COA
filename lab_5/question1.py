@@ -15,13 +15,25 @@ The output of the program is A+B or A-B based on the flag-bit.
 
 '''
 
-import FloatingPointNumbers 
+import FloatingPointNumbers
+
+def align_exponents(a,b):
+    if a.significand < b.significand:
+        a.significand >>= 1
+        a.exponent = a.exponent + 1
+    if a.significand > b.significand:
+        b.significand >>= 1
+        b.exponent = b.exponent + 1
 
 def script(a: FloatingPointNumbers,b: FloatingPointNumbers,flag):
     if a.significand == 0:
         return b 
     if b.significand == 0:
         return a
+    
+    align_exponents(a,b)
+    
+    
     
     
 
